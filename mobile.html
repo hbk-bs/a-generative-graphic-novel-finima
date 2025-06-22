@@ -148,7 +148,7 @@
       `But time moves on, the world transforms,\nA sudden shift, a change of forms.\nThe ancient streets, now paved with tar,\nA different age, both near and far.`,
       `The Lion stands at Schloss Arkaden's gate,\nA gleaming glass and steel estate.\nBright lights flash, loud sounds abound,\nA modern palace, all around.`,
       `Inside the mall, where people stride,\nHe sees reflections, side by side.\nOf hurried steps and whispered talks,\nLost in these bright, consumer walks.`,
-      `A metal beast, in aisles so bright,\nThe meat counter, a strange new sight.\nHe sees his kin, in plastic wrapped,\nA modern world, completely trapped.`,
+      `A metal beast, in aisles so bright,\nThe butcher's counter, a strange new sight.\nHe sees his kin, in plastic wrapped,\nA modern world, completely trapped.`,
       `Beyond the clamor, and the rush,\nA quiet echo, in the hush.\nA different call, a different way,\nTo find the past, in present day.`,
       `At Herzog Anton Ulrich's stately hall,\nOld friends and foes, rise from the wall.\nTheir painted eyes, a silent plea,\nA memory of what used to be.`,
       `Through ancient halls, he softly treads,\nWhere painted battles, minds misled.\nHe sees the faces, stark and grand,\nOf those who ruled, this Brunswick land.`,
@@ -157,8 +157,8 @@
       `The city roars, a metal stream,\nA world of noise, a waking dream.\nThe ancient peace, now far away,\nHe longs for dusk, and yesterday.`,
       `A copy stands, upon his place,\nA hollow shell, a cold embrace.\nHe sees his form, but feels no pride,\nA part of him, has truly died.`,
       `With heavy heart, he turns to go,\nBack to the place, he used to know.\nThis future world, he can't embrace,\nHe seeks his past, his time, his space.`,
-      `He climbs the stone, with weary sigh,\nHis bronze grows cold, beneath the sky.\nThe magic fades, the spell undone,\nHis journey ends, where it begun.`,
-      `The lion sleeps, once more in stone,\nHis tale untold, his journey done.\nA guardian still, for all to see,\nA timeless legend, wild and free.`
+      `He climbs the stone, with weary sigh,\nHis bronze grows cold, beneath the sky.\nThe magic fades, the spell is through,\nHis journey ends, as it was due.`,
+      `The lion sleeps, in stone once more,\nHis ancient tale, forevermore.\nA guardian stands, for all to see,\nA timeless legend, wild and free.`
     ];
 
     const pages = [];
@@ -171,13 +171,10 @@
       pages.push(page);
     };
 
-    // COVER PAGE
     addPage(`<h1>${coverPage.title}</h1><h3>${coverPage.subtitle}</h3>`, true);
 
-    // INTRO PAGE
     addPage(`<div class="text-section">${introPage.text.replace(/\n/g, '<br>')}</div>`);
 
-    // POEM PAGES
     poemStanzas.forEach((stanza, i) => {
       const content = `
         <div class="image-section"><img src="images/${String(i + 1).padStart(2, '0')}.jpg" alt="Image ${i + 1}"></div>
