@@ -7,12 +7,12 @@ const backToCoverButton = document.getElementById('backToCoverButton');
 
 
 const coverPage = {
-  title: `The Lion's Adventure`,
+  title: `A Lion's Adventure`,
   subtitle: `A Medieval Journey Through Time`
 };
 
 const introPage = {
-  text: `Welcome to "The Lion's Adventure"\n\nA poetic journey through time, history, and transformation.\n\nBegin the story by flipping the pages.`
+  text: `Welcome to "A Lion's Adventure"\nA poetic journey through time, history, and transformation.\nBegin the story by flipping the pages.`
 };
 
 const poemStanzas = [
@@ -53,15 +53,15 @@ const addPage = (bookElement, text, imgIndex, isCover = false, isIntro = false) 
     if (bookElement === desktopBook) {
         page.innerHTML = `
             <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
-            <div class="text-section" style="text-align: center; justify-content: center;">
-                Created by X1, X2, X3, X4, with help of the programs:<br>Gemini, Chat GPT and Midjourney
+            <div class="text-section" style="text-align: center; justify-content: center; height: 90%;">
+                Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney
             </div>
         `;
     } else { // Mobile intro page
         page.innerHTML = `
             <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
             <div class="text-section" style="text-align: center;">
-                Created by X1, X2, X3, X4, with help of the programs:<br>Gemini, Chat GPT and Midjourney
+                 Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney
             </div>
         `;
     }
