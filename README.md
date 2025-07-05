@@ -1,3 +1,14 @@
+We decided to use Midjourney to generate the pictures for our novel. For coding we used mainly Gemini with a hint of help from Chat GPT. 
+Our Story depicts the Lion Statue on the "Burgplatz Braunschweig" coming to life and exploring the present Braunschweig while relating every new experience to his past. 
+The story is written as a poem with 21 stanzas with 4 verses each. 
+The overall tone and look of the pictures was inspired by Persian miniature painting and Japanese woodblock print.
+The focus is on the golden ornaments that grow on the lion statue (in our depiction not on the real "Braunschweiger Löwe") and the blue overall tone borrowed from the 
+Persian miniature painting which we referenced. 
+This is the link to our style inspiration: 
+https://www.reddit.com/r/midjourney/comments/1lcn4ev/im_really_satisfied_with_these_images/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+
+
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/XqgwSs8q)
 # A Generative Graphic Novel Briefing
 
