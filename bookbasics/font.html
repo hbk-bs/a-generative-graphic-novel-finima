@@ -233,6 +233,14 @@
       font-style: italic;
     }
 
+    /* New style for non-cursive font on mobile cover */
+    .mobile .page.cover.non-cursive-font h1,
+    .mobile .page.cover.non-cursive-font h3 {
+      font-family: sans-serif; /* Or any other non-cursive font you prefer, e.g., 'Arial', 'Verdana' */
+      font-style: normal; /* Override italic if it was inherited */
+    }
+
+
     /* Intro Page Styles for Mobile */
     .mobile .page.intro .text-section {
       height: 100%; /* Occupy full height to center content */
@@ -333,6 +341,10 @@
       page.className = 'page' + (isCover ? ' cover' : '') + (isIntro ? ' intro' : '');
 
       if (isCover) {
+        // Add the new class for non-cursive font on mobile cover pages
+        if (bookElement === mobileBook) {
+            page.classList.add('non-cursive-font');
+        }
         page.innerHTML = `<h1>${coverPage.title}</h1><h3>${coverPage.subtitle}</h3>`;
       } else if (isIntro) {
         if (bookElement === desktopBook) {
