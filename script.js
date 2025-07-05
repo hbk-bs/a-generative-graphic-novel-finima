@@ -54,14 +54,14 @@ const addPage = (bookElement, text, imgIndex, isCover = false, isIntro = false) 
         page.innerHTML = `
             <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
             <div class="text-section" style="text-align: center; justify-content: center; height: 90%;">
-                Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney.
+                Created by: <br> Fine, Nicole, Nastie and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney.
             </div>
         `;
     } else { // Mobile intro page
         page.innerHTML = `
             <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
             <div class="text-section" style="text-align: center;">
-                 Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney.
+                 Created by: <br> Fine, Nicole, Nastie and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney.
             </div>
         `;
     }
