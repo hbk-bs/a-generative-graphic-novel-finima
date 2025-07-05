@@ -1,0 +1,143 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #2e3537;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book {
+  width: 350px;
+  height: 450px;
+  position: relative;
+  perspective: 1500px;
+  transition-duration: 1.5s;
+}
+
+/* Hide checkboxes visually - managed by JS */
+input {
+  display: none;
+}
+
+/* Cover and back cover styles */
+.cover,
+.back-cover {
+  background-color: #4173a5;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 0 0 5px rgb(41, 41, 41);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center left;
+}
+
+.cover {
+  position: absolute;
+  z-index: 20; /* High z-index when closed */
+  transition: transform 1.5s, z-index 0.5s 0.5s; /* z-index transition for opening */
+}
+
+.cover label {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.back-cover {
+  position: relative;
+  z-index: -1;
+}
+
+/* Page styles */
+.page {
+  position: absolute;
+  background-color: white;
+  width: 330px;
+  height: 430px;
+  border-radius: 0 15px 15px 0;
+  margin-top: 10px;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  /* MODIFIED: Add z-index to transition for smoother changes in stacking order */
+  transition: transform 1.5s, z-index 0.5s; /* z-index transitions instantly by default, add duration */
+  box-shadow: none;
+}
+
+.page img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 0 0 15px;
+  object-fit: cover;
+}
+
+.front-page,
+.back-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  padding: 1rem;
+  display: flex; /* Use flexbox for easier positioning */
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.back-page {
+  transform: rotateY(180deg);
+  z-index: 99; /* This z-index is for content on the back face */
+}
+
+/* Navigation buttons - Adjusted Positioning */
+.next,
+.prev {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #555;
+  user-select: none;
+  position: absolute;
+  bottom: 1rem;
+  z-index: 100; /* Ensure arrows are always on top */
+}
+
+.next {
+  right: 1rem;
+}
+
+.prev {
+  left: 1rem;
+}
+
+/* --- CSS FOR FLIPPING PAGES (Controlled by JavaScript) --- */
+
+/* Flip cover when checked - remains CSS-only */
+#checkbox-cover:checked ~ .book {
+  transform: translateX(200px);
+}
+
+#checkbox-cover:checked ~ .book .cover {
+  transform: rotateY(-180deg);
+  z-index: 1;
+  transition: transform 1.5s, z-index 0.5s 0.5s;
+}
+
+/* Add shadow to pages when the book is open (cover is checked) */
+#checkbox-cover:checked ~ .book .page {
+  box-shadow: 0 0 3px rgb(99, 98, 98);
+}
+
+/* Class added by JavaScript to flip a page */
+.page.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* Added for a slightly smoother z-index transition when unflipping */
+/* This will ensure the z-index change happens after the transform starts */
+.page:not(.flipped) {
+    transition: transform 1.5s, z-index 0.01s 1.4s; /* z-index changes near the end of unflipping */
+}

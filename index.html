@@ -1,19 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CHANGE THIS TITLE</title>
-	<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Lion's Adventure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Canterbury&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-	<main>
-		<h1>CHANGE THIS TITLE</h1>
-		<p>CHANGE THIS TEXT</p>
-	</main>
-	<script src="index.js"></script>
-</body>
+  <div class="layout desktop" id="desktopLayout">
+    <div class="book" id="desktopBook"></div>
+  </div>
+  <div class="layout mobile" id="mobileLayout">
+    <div class="book" id="mobileBook"></div>
+  </div>
+  <div class="nav-buttons">
+    <button onclick="flipPrev()">Previous</button>
+    <button id="nextButton" onclick="flipNext()">Next</button>
+    <button id="backToCoverButton" onclick="goToCover()">Back to Cover</button>
+  </div>
 
+  <script src="script.js"></script>
+  <div id="backlink">
+		<style>
+			#backlink {
+				--color-accent: hsl(198, 100%, 50%);
+				position: absolute;
+				top: 8px;
+				right: 8px;
+				border: 1px dashed black;
+				background-color: white;
+				padding: 8px;
+				cursor: pointer;
+				color: black;
+				font-size: 0.8rem;
+				font-weight: bold;
+				transition: all 0.3s ease;
+				transform: rotate(-2deg) scale(0.9);
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+				a {
+					text-decoration: none;
+					color: black;
+					color: inherit;
+					text-decoration: underline;
+					background-image: linear-gradient(to right,
+							var(--color-accent) 0%,
+							var(--color-accent) 100%);
+					background-size: 0% 100%;
+					background-position: left center;
+					background-repeat: no-repeat;
+					transition: background-size 0.2s ease-in-out;
+					padding: 0.5rem;
+				}
+				a:hover {
+					background-size: 100% 100%;
+					color: white;
+				}
+
+			}
+			#backlink:hover {
+				transform: rotate(2deg) scale(1);
+			}
+		</style>
+		<a href="https://rundgang2025.qawsed.site">Back to the Rundgang 2025</a>
+	</div>
+</body>
 </html>

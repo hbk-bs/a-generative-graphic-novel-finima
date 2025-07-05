@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Lion's Awakening</title>
+  <style>
+    body {
+      background: #2d2013;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Garamond', serif;
+    }
+
+    .book {
+      width: 90vw;
+      max-width: 900px;
+      height: 70vh;
+      max-height: 800px;
+      position: relative;
+      perspective: 2000px;
+      border: 8px solid #5c3a1e;
+      box-shadow: 0 0 20px #000 inset, 0 0 60px #3b2a1a;
+      background: url('leather-texture.jpg');
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      background: url('parchment-texture.jpg') #f6f1d3;
+      background-size: cover;
+      border: 1px solid #bca77a;
+      box-sizing: border-box;
+      padding: 20px;
+      transition: transform 1s ease;
+      transform-origin: left center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      z-index: 0;
+    }
+
+    .page.flipped {
+      transform: rotateY(-180deg);
+    }
+
+    .text-section {
+      width: 50%;
+      padding: 20px;
+      box-sizing: border-box;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #2d2013;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    .image-section {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-section img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border: 2px solid #bca77a;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .nav-buttons {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #3e2a14;
+      color: #f0e6c2;
+      border: 2px solid #d1ba8b;
+      cursor: pointer;
+      font-family: 'Garamond', serif;
+      box-shadow: 2px 2px 4px #000;
+    }
+
+    /* === COVER PAGE STYLING === */
+    .page.cover {
+      background: url('leather-texture.jpg') #3e2a14;
+      background-size: cover;
+      border: 4px solid #b28a56;
+      box-shadow:
+        inset 0 0 60px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page.cover .text-section {
+      text-align: center;
+      color: #f8e8c8;
+      text-shadow: 1px 1px 2px #000;
+      font-family: 'Garamond', serif;
+      padding: 40px;
+      font-size: 1.6em;
+      width: 100%;
+    }
+
+    .page.cover h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #d1ba8b;
+      display: inline-block;
+      padding-bottom: 0.2em;
+    }
+
+    .page.cover h3 {
+      font-size: 1.4em;
+      font-style: italic;
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="book" id="book"></div>
+  <div class="nav-buttons">
+    <button onclick="flipPrev()">Previous</button>
+    <button onclick="flipNext()">Next</button>
+  </div>
+
+  <script>
+    const book = document.getElementById('book');
+
+    const coverPage = {
+      title: `The Lion's Awakening`,
+      subtitle: `A Medieval Journey Through Time`
+    };
+
+    const introPage = {
+      text: `Welcome to "The Lion's Awakening"\n\nA poetic journey through time, history, and transformation.\n\nBegin the story by flipping the pages.`
+    };
+
+    const poemStanzas = [
+      `From ancient mold, a lion sleeps,\nBronze and still, his vigil keeps.\nOn Burgplatz old, his story waits,\nFor time to turn and open gates.`,
+      `A whisper stirs, a magic wakes,\nThe lion's heart, it barely breaks.\nA golden spark, ignites his gaze,\nHe stirs from dreams of bygone days.`,
+      `With heavy step, he leaves his stand,\nA metal paw on ancient land.\nThe square transforms, the world anew,\nA different age comes into view.`,
+      `Through market streets, he starts to roam,\nWhere medieval Braunschweig makes its home.\nA metal giant in a world unknown,\nHis ancient heart, it beats alone.`,
+      `The cathedral's form, a welcome sight,\nIts Romanesque arches, bathed in light.\nA piece of home, in this strange place,\nA moment's peace upon his face.`,
+      `A duke appears, with lion's name,\nHenry the Lion, full of fame.\nA silent nod, a shared domain,\nTwo mighty lions, in sun and rain.`,
+      `He walks through time, a silent guest,\nObserving life, put to the test.\nFrom feasts of joy to battles won,\nThe Lion sees what man has done.`,
+      `But time moves on, the world transforms,\nA sudden shift, a change of forms.\nThe ancient streets, now paved with tar,\nA different age, both near and far.`,
+      `The Lion stands at Schloss Arkaden's gate,\nA gleaming glass and steel estate.\nBright lights flash, loud sounds abound,\nA modern palace, all around.`,
+      `Inside the mall, where people stride,\nHe sees reflections, side by side.\nOf hurried steps and whispered talks,\nLost in these bright, consumer walks.`,
+      `A metal beast, in aisles so bright,\nThe meat counter, a strange new sight.\nHe sees his kin, in plastic wrapped,\nA modern world, completely trapped.`,
+      `Beyond the clamor, and the rush,\nA quiet echo, in the hush.\nA different call, a different way,\nTo find the past, in present day.`,
+      `At Herzog Anton Ulrich's stately hall,\nOld friends and foes, rise from the wall.\nTheir painted eyes, a silent plea,\nA memory of what used to be.`,
+      `Through ancient halls, he softly treads,\nWhere painted battles, minds misled.\nHe sees the faces, stark and grand,\nOf those who ruled, this Brunswick land.`,
+      `Within the castle, walls arise,\nA modern echo, meets his eyes.\nThe ancient stones, a memory faint,\nA different world, without restraint.`,
+      `A glowing screen, with words so small,\nTells of his tale, and his downfall.\nA legend told, in digital light,\nHis ancient roar, lost in the night.`,
+      `The city roars, a metal stream,\nA world of noise, a waking dream.\nThe ancient peace, now far away,\nHe longs for dusk, and yesterday.`,
+      `A copy stands, upon his place,\nA hollow shell, a cold embrace.\nHe sees his form, but feels no pride,\nA part of him, has truly died.`,
+      `With heavy heart, he turns to go,\nBack to the place, he used to know.\nThis future world, he can't embrace,\nHe seeks his past, his time, his space.`,
+      `He climbs the stone, with weary sigh,\nHis bronze grows cold, beneath the sky.\nThe magic fades, the spell undone,\nHis journey ends, where it begun.`,
+      `The lion sleeps, once more in stone,\nHis tale untold, his journey done.\nA guardian still, for all to see,\nA timeless legend, wild and free.`
+    ];
+
+    let currentPage = 0;
+    const pages = [];
+
+    const createPoemPage = (text, imageIndex) => {
+      const page = document.createElement('div');
+      page.className = 'page';
+
+      const textDiv = document.createElement('div');
+      textDiv.className = 'text-section';
+      textDiv.innerHTML = `<p>${text.replace(/\n/g, "<br>")}</p>`;
+
+      const imgDiv = document.createElement('div');
+      imgDiv.className = 'image-section';
+      imgDiv.innerHTML = `<img src="images/${String(imageIndex).padStart(2, '0')}.jpg" alt="Image ${imageIndex}" />`;
+
+      page.appendChild(textDiv);
+      page.appendChild(imgDiv);
+      book.appendChild(page);
+      pages.push(page);
+    };
+
+    const createSimplePage = (html) => {
+      const page = document.createElement('div');
+      page.className = 'page';
+
+      const container = document.createElement('div');
+      container.className = 'text-section';
+      container.style.width = '100%';
+      container.innerHTML = html;
+
+      page.appendChild(container);
+      book.appendChild(page);
+      pages.push(page);
+    };
+
+    // COVER PAGE
+    const cover = document.createElement('div');
+    cover.className = 'page cover';
+
+    const coverContent = document.createElement('div');
+    coverContent.className = 'text-section';
+    coverContent.innerHTML = `<h1>${coverPage.title}</h1><h3>${coverPage.subtitle}</h3>`;
+
+    cover.appendChild(coverContent);
+    book.appendChild(cover);
+    pages.push(cover);
+
+    // INTRO PAGE
+    createSimplePage(`<p>${introPage.text.replace(/\n/g, "<br>")}</p>`);
+
+    // POEM PAGES
+    poemStanzas.forEach((stanza, i) => {
+      createPoemPage(stanza, i + 1);
+    });
+
+    function flipNext() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = "none";
+        currentPage++;
+        pages[currentPage].style.display = "flex";
+      }
+    }
+
+    function flipPrev() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = "none";
+        currentPage--;
+        pages[currentPage].style.display = "flex";
+      }
+    }
+
+    // Show only first page initially
+    pages.forEach((p, i) => {
+      p.style.display = i === 0 ? "flex" : "none";
+    });
+  </script>
+</body>
+</html>
