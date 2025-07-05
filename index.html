@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CHANGE THIS TITLE</title>
-	<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Lion's Adventure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Canterbury&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-	<main>
-		<h1>CHANGE THIS TITLE</h1>
-		<p>CHANGE THIS TEXT</p>
-	</main>
-	<script src="index.js"></script>
-</body>
+  <div class="layout desktop" id="desktopLayout">
+    <div class="book" id="desktopBook"></div>
+  </div>
+  <div class="layout mobile" id="mobileLayout">
+    <div class="book" id="mobileBook"></div>
+  </div>
+  <div class="nav-buttons">
+    <button onclick="flipPrev()">Previous</button>
+    <button id="nextButton" onclick="flipNext()">Next</button>
+    <button id="backToCoverButton" onclick="goToCover()">Back to Cover</button>
+  </div>
 
+  <script src="script.js"></script>
+</body>
 </html>

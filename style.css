@@ -1,29 +1,257 @@
-*,
-::after,
-::before {
+html, body {
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
-}
-html {
-	font-size: 110%;
-}
-html,
-body {
 	height: 100%;
-}
-
-body {
-	/* System UI */
-	font-family: system-ui, sans-serif;
-	font-weight: normal;
+	font-family: 'Canterbury', cursive;
+	background: #2d2013;
+	overflow: hidden;
+  }
+  
+  .layout {
+	display: none;
+	height: 100vh;
+	width: 100vw;
+  }
+  
+  .layout.active {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .nav-buttons {
+	position: absolute;
+	bottom: 1vh;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	z-index: 10;
+  }
+  
+  .nav-buttons button {
+	padding: 1.5vh 3vw;
+	font-size: 2.5vw;
+	background-color: #3e2a14;
+	color: #f0e6c2;
+	border: 2px solid #d1ba8b;
+	cursor: pointer;
+	font-family: 'Canterbury', cursive;
+	border-radius: 8px;
+  }
+  
+  /* DESKTOP STYLES */
+  .desktop .book {
+	margin: auto;
+	width: 90vw;
+	max-width: 900px;
+	height: 70vh;
+	max-height: 800px;
+	position: relative;
+	border: 8px solid #5c3a1e;
+	box-shadow: 0 0 20px #000 inset, 0 0 60px #3b2a1a;
+	background: url('leather-texture.jpg');
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .desktop .page {
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: url('parchment-texture.jpg') #f6f1d3;
+	background-size: cover;
+	border: 1px solid #bca77a;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+	padding: 20px;
+	box-sizing: border-box;
+	flex-direction: row;
+  }
+  
+  .desktop .page.visible {
+	display: flex;
+  }
+  
+  .desktop .image-section, .desktop .text-section {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .desktop .text-section {
+	font-size: 1.1em;
+	line-height: 1.6;
+	color: #2d2013;
+	text-align: center;
+	white-space: pre-line;
+	padding: 20px;
+	overflow-y: auto;
+  }
+  
+  .desktop .image-section img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	border: 2px solid #bca77a;
+	box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  }
+  
+  /* Cover Page Styles for Desktop */
+  .desktop .page.cover {
+	background: url('leather-texture.jpg') #3e2a14;
+	background-size: cover;
+	box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
+	color: #f8e8c8;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+  }
+  
+  .desktop .page.cover h1 {
+	font-size: 3em;
+	margin-bottom: 2vh;
+	text-transform: uppercase;
+	border-bottom: 2px solid #d1ba8b;
+	display: inline-block;
+	padding-bottom: 1vh;
+  }
+  
+  .desktop .page.cover h3 {
+	font-size: 1.5em;
+	font-style: italic;
+  }
+  
+  /* Intro Page Styles for Desktop */
+  .desktop .page.intro .text-section {
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+  }
+  
+  
+  /* MOBILE STYLES */
+  .mobile .book {
+	width: 100vw;
+	height: 100vh;
+	background: url('leather-texture.jpg') #3e2a14;
+	background-size: cover;
+	box-shadow: inset 0 0 60px rgba(0,0,0,0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+  }
+  
+  .mobile .page {
+	display: none;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	background: url('parchment-texture.jpg') #f6f1d3;
+	background-size: cover;
+	border: 2px solid #bca77a;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+	flex-direction: column;
+	justify-content: flex-start;
+  }
+  
+  .mobile .page.visible {
+	display: flex;
+  }
+  
+  .mobile .image-section {
+	height: 60vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .mobile .image-section img {
+	max-height: 100%;
+	max-width: 100%;
+	object-fit: contain;
+	border: 1px solid #bca77a;
+	box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  }
+  
+  .mobile .text-section {
+	height: 30vh;
+	padding: 1vh 4vw;
+	font-size: 4vw;
 	line-height: 1.5;
-}
-image,
-canvas,
-iframe,
-video,
-svg,
-textarea {
-	display: block;
-}
+	color: #2d2013;
+	text-align: center;
+	overflow-y: auto;
+  }
+  
+  /* Cover Page Styles for Mobile */
+  .mobile .page.cover {
+	background: url('leather-texture.jpg') #3e2a14;
+	background-size: cover;
+	box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
+	color: #f8e8c8;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  @media (max-width: 767px) {
+	.mobile .page.cover h1 {
+	  font-size: 6vw;
+	  margin-bottom: 1.5vh;
+	}
+  
+	.mobile .page.cover h3 {
+	  font-size: 3vw;
+	}
+  }
+  
+  .mobile .page.cover h1 {
+	font-size: 8vw;
+	margin-bottom: 2vh;
+	text-transform: uppercase;
+	border-bottom: 2px solid #d1ba8b;
+	display: inline-block;
+	padding-bottom: 1vh;
+	font-family: sans-serif;
+  }
+  
+  .mobile .page.cover h3 {
+	font-size: 4.5vw;
+	font-style: italic;
+  }
+  
+  /* Intro Page Styles for Mobile */
+  .mobile .page.intro .text-section {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 4vw;
+  }
+  
+  .back-to-cover-button {
+	padding: 1.5vh 3vw;
+	font-size: 2.5vw;
+	background-color: #3e2a14;
+	color: #f0e6c2;
+	border: 2px solid #d1ba8b;
+	cursor: pointer;
+	font-family: 'Canterbury', cursive;
+	border-radius: 8px;
+	margin-top: 20px;
+  }
+  
+  .nav-buttons {
+	  display: flex;
+	  justify-content: space-around;
+	  align-items: center;
+  }
+  
+  .nav-buttons #nextButton,
+  .nav-buttons #backToCoverButton {
+	  display: none;
+  }
