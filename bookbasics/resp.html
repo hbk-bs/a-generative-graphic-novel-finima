@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Lion's Awakening</title>
+  <title>The Lion's Adventure</title>
   <link href="https://fonts.googleapis.com/css2?family=Canterbury&display=swap" rel="stylesheet">
   <style>
     html, body {
@@ -231,6 +230,31 @@
       padding: 0 4vw; /* Adjust padding as needed */
     }
 
+    /* Style for the back to cover button */
+    .back-to-cover-button {
+      padding: 1.5vh 3vw;
+      font-size: 2.5vw;
+      background-color: #3e2a14;
+      color: #f0e6c2;
+      border: 2px solid #d1ba8b;
+      cursor: pointer;
+      font-family: 'Canterbury', cursive;
+      border-radius: 8px;
+      margin-top: 20px; /* Space from content above */
+    }
+
+    /* Nav buttons container styling for proper alignment */
+    .nav-buttons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .nav-buttons #nextButton,
+    .nav-buttons #backToCoverButton {
+        display: none; /* Hide by default, control visibility with JS */
+    }
+
   </style>
 </head>
 <body>
@@ -242,7 +266,8 @@
   </div>
   <div class="nav-buttons">
     <button onclick="flipPrev()">Previous</button>
-    <button onclick="flipNext()">Next</button>
+    <button id="nextButton" onclick="flipNext()">Next</button>
+    <button id="backToCoverButton" onclick="goToCover()">Back to Cover</button>
   </div>
 
   <script>
@@ -250,9 +275,12 @@
     const mobileLayout = document.getElementById('mobileLayout');
     const desktopBook = document.getElementById('desktopBook');
     const mobileBook = document.getElementById('mobileBook');
+    const nextButton = document.getElementById('nextButton');
+    const backToCoverButton = document.getElementById('backToCoverButton');
+
 
     const coverPage = {
-      title: `The Lion's Awakening`,
+      title: `The Lion's Adventure`,
       subtitle: `A Medieval Journey Through Time`
     };
 
@@ -345,6 +373,15 @@
     function showPage(index) {
       pagesDesktop.forEach((p, i) => p.classList.toggle('visible', i === index));
       pagesMobile.forEach((p, i) => p.classList.toggle('visible', i === index));
+
+      // Control button visibility
+      if (index === pagesDesktop.length - 1) { // Last page
+        nextButton.style.display = 'none';
+        backToCoverButton.style.display = 'block';
+      } else {
+        nextButton.style.display = 'block';
+        backToCoverButton.style.display = 'none';
+      }
     }
 
     function flipNext() {
@@ -359,6 +396,11 @@
         currentPage--;
         showPage(currentPage);
       }
+    }
+
+    function goToCover() {
+        currentPage = 0;
+        showPage(currentPage);
     }
 
     function updateLayout() {
