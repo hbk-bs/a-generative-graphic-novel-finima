@@ -19,7 +19,7 @@ const poemStanzas = [
  `From ancient mold, a lion sleeps,\nBronze and still, his vigil keeps.\nOn Burgplatz old, his story waits,\nFor time to turn and open gates.`,
   `A whisper stirs, a magic wakes,\nThe lion's heart, it barely breaks.\nA golden spark, ignites his gaze,\nHe stirs from dreams of bygone days.`,
   `With heavy step, he leaves his stand,\nA metal paw on ancient land.\nThe square transforms, the world anew,\nA different age comes into view.`,
-  `Through market streets, he starts to roam,\nWhere medieval Braunschweig makes its home.\nA metal giant in a world unknown,\nHis ancient heart, it beats alone.`,
+  `Through market streets, he starts to roam,\nWhere medieval Brunswick makes its home.\nA metal giant in a world unknown,\nHis ancient heart, it beats alone.`,
   `The cathedral's form, a welcome sight,\nIts Romanesque arches, bathed in light.\nA piece of home, in this strange place,\nA moment's peace upon his face.`,
   `A duke appears, with lion's name,\nHenry the Lion, full of fame.\nA silent nod, a shared domain,\nTwo mighty lions, in sun and rain.`,
   `He walks through time, a silent guest,\nObserving life, put to the test.\nFrom feasts of joy to battles won,\nThe Lion sees what man has done.`,
@@ -54,14 +54,14 @@ const addPage = (bookElement, text, imgIndex, isCover = false, isIntro = false) 
         page.innerHTML = `
             <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
             <div class="text-section" style="text-align: center; justify-content: center; height: 90%;">
-                Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney
+                Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney.
             </div>
         `;
     } else { // Mobile intro page
         page.innerHTML = `
             <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
             <div class="text-section" style="text-align: center;">
-                 Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney
+                 Created by: <br> Fine, Nicole, Nastia and Maddy, <br> with help of the programs:<br>Gemini, Chat GPT and Midjourney.
             </div>
         `;
     }
