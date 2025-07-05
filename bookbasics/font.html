@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Lion's Adventure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Canterbury&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Canterbury', cursive; /* Changed font to Canterbury */
+      background: #2d2013;
+      overflow: hidden;
+    }
+
+    .layout {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .layout.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-buttons {
+      position: absolute;
+      bottom: 1vh;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      padding: 1.5vh 3vw;
+      font-size: 2.5vw;
+      background-color: #3e2a14;
+      color: #f0e6c2;
+      border: 2px solid #d1ba8b;
+      cursor: pointer;
+      font-family: 'Canterbury', cursive; /* Changed font to Canterbury */
+      border-radius: 8px;
+    }
+
+    /* DESKTOP STYLES */
+    .desktop .book {
+      margin: auto;
+      width: 90vw;
+      max-width: 900px;
+      height: 70vh;
+      max-height: 800px;
+      position: relative;
+      border: 8px solid #5c3a1e;
+      box-shadow: 0 0 20px #000 inset, 0 0 60px #3b2a1a;
+      background: url('leather-texture.jpg');
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .desktop .page {
+      display: none;
+      width: 100%;
+      height: 100%;
+      background: url('parchment-texture.jpg') #f6f1d3;
+      background-size: cover;
+      border: 1px solid #bca77a;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      padding: 20px;
+      box-sizing: border-box;
+      flex-direction: row;
+    }
+
+    .desktop .page.visible {
+      display: flex;
+    }
+
+    .desktop .image-section, .desktop .text-section {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .desktop .text-section {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #2d2013;
+      text-align: center;
+      white-space: pre-line;
+      padding: 20px;
+      overflow-y: auto; /* Added for scrollability */
+    }
+
+    .desktop .image-section img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border: 2px solid #bca77a;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    }
+
+    /* Cover Page Styles for Desktop */
+    .desktop .page.cover {
+      background: url('leather-texture.jpg') #3e2a14;
+      background-size: cover;
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
+      color: #f8e8c8;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; /* Ensure content stacks vertically */
+    }
+
+    .desktop .page.cover h1 {
+      font-size: 3em;
+      margin-bottom: 2vh;
+      text-transform: uppercase;
+      border-bottom: 2px solid #d1ba8b;
+      display: inline-block;
+      padding-bottom: 1vh;
+    }
+
+    .desktop .page.cover h3 {
+      font-size: 1.5em;
+      font-style: italic;
+    }
+
+    /* Intro Page Styles for Desktop */
+    .desktop .page.intro .text-section {
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%; /* Ensure text section takes full height to center content */
+    }
+
+
+    /* MOBILE STYLES */
+    .mobile .book {
+      width: 100vw;
+      height: 100vh;
+      background: url('leather-texture.jpg') #3e2a14;
+      background-size: cover;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .mobile .page {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      background: url('parchment-texture.jpg') #f6f1d3;
+      background-size: cover;
+      border: 2px solid #bca77a;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .mobile .page.visible {
+      display: flex;
+    }
+
+    .mobile .image-section {
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mobile .image-section img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      border: 1px solid #bca77a;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .mobile .text-section {
+      height: 30vh;
+      padding: 1vh 4vw;
+      font-size: 4vw;
+      line-height: 1.5;
+      color: #2d2013;
+      text-align: center;
+      overflow-y: auto;
+    }
+
+    /* Cover Page Styles for Mobile */
+    .mobile .page.cover {
+      background: url('leather-texture.jpg') #3e2a14;
+      background-size: cover;
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
+      color: #f8e8c8;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* --- IMPORTANT CHANGE HERE FOR MOBILE COVER FONT SIZE --- */
+    @media (max-width: 767px) { /* Styles applied to screens 767px wide or less (typical mobile) */
+      .mobile .page.cover h1 {
+        font-size: 6vw; /* Adjusted for better mobile legibility */
+        margin-bottom: 1.5vh;
+      }
+
+      .mobile .page.cover h3 {
+        font-size: 3vw; /* Adjusted for better mobile legibility */
+      }
+    }
+    /* --- END IMPORTANT CHANGE --- */
+
+    .mobile .page.cover h1 {
+      font-size: 8vw;
+      margin-bottom: 2vh;
+      text-transform: uppercase;
+      border-bottom: 2px solid #d1ba8b;
+      display: inline-block;
+      padding-bottom: 1vh;
+    }
+
+    .mobile .page.cover h3 {
+      font-size: 4.5vw;
+      font-style: italic;
+    }
+
+    /* Intro Page Styles for Mobile */
+    .mobile .page.intro .text-section {
+      height: 100%; /* Occupy full height to center content */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4vw; /* Adjust padding as needed */
+    }
+
+    /* Style for the back to cover button */
+    .back-to-cover-button {
+      padding: 1.5vh 3vw;
+      font-size: 2.5vw;
+      background-color: #3e2a14;
+      color: #f0e6c2;
+      border: 2px solid #d1ba8b;
+      cursor: pointer;
+      font-family: 'Canterbury', cursive;
+      border-radius: 8px;
+      margin-top: 20px; /* Space from content above */
+    }
+
+    /* Nav buttons container styling for proper alignment */
+    .nav-buttons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .nav-buttons #nextButton,
+    .nav-buttons #backToCoverButton {
+        display: none; /* Hide by default, control visibility with JS */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="layout desktop" id="desktopLayout">
+    <div class="book" id="desktopBook"></div>
+  </div>
+  <div class="layout mobile" id="mobileLayout">
+    <div class="book" id="mobileBook"></div>
+  </div>
+  <div class="nav-buttons">
+    <button onclick="flipPrev()">Previous</button>
+    <button id="nextButton" onclick="flipNext()">Next</button>
+    <button id="backToCoverButton" onclick="goToCover()">Back to Cover</button>
+  </div>
+
+  <script>
+    const desktopLayout = document.getElementById('desktopLayout');
+    const mobileLayout = document.getElementById('mobileLayout');
+    const desktopBook = document.getElementById('desktopBook');
+    const mobileBook = document.getElementById('mobileBook');
+    const nextButton = document.getElementById('nextButton');
+    const backToCoverButton = document.getElementById('backToCoverButton');
+
+
+    const coverPage = {
+      title: `The Lion's Adventure`,
+      subtitle: `A Medieval Journey Through Time`
+    };
+
+    const introPage = {
+      text: `Welcome to "The Lion's Awakening"\n\nA poetic journey through time, history, and transformation.\n\nBegin the story by flipping the pages.`
+    };
+
+    const poemStanzas = [
+     `From ancient mold, a lion sleeps,\nBronze and still, his vigil keeps.\nOn Burgplatz old, his story waits,\nFor time to turn and open gates.`,
+      `A whisper stirs, a magic wakes,\nThe lion's heart, it barely breaks.\nA golden spark, ignites his gaze,\nHe stirs from dreams of bygone days.`,
+      `With heavy step, he leaves his stand,\nA metal paw on ancient land.\nThe square transforms, the world anew,\nA different age comes into view.`,
+      `Through market streets, he starts to roam,\nWhere medieval Braunschweig makes its home.\nA metal giant in a world unknown,\nHis ancient heart, it beats alone.`,
+      `The cathedral's form, a welcome sight,\nIts Romanesque arches, bathed in light.\nA piece of home, in this strange place,\nA moment's peace upon his face.`,
+      `A duke appears, with lion's name,\nHenry the Lion, full of fame.\nA silent nod, a shared domain,\nTwo mighty lions, in sun and rain.`,
+      `He walks through time, a silent guest,\nObserving life, put to the test.\nFrom feasts of joy to battles won,\nThe Lion sees what man has done.`,
+      `But time moves on, the world transforms,\nA sudden shift, a change of forms.\nThe ancient streets, now paved with tar,\nA different age, both near and far.`,
+      `The Lion stands at Schloss Arkaden's gate,\nA gleaming glass and steel estate.\nBright lights flash, loud sounds abound,\nA modern palace, all around.`,
+      `Inside the mall, where people stride,\nHe sees reflections, side by side.\nOf hurried steps and whispered talks,\nLost in these bright, consumer walks.`,
+      `A metal beast, in aisles so bright,\nThe meat counter, a strange new sight.\nHe sees his kin, in plastic wrapped,\nA modern world, completely trapped.`,
+      `Beyond the clamor, and the rush,\nA quiet echo, in the hush.\nA different call, a different way,\nTo find the past, in present day.`,
+      `At Herzog Anton Ulrich's stately hall,\nOld friends and foes, rise from the wall.\nTheir painted eyes, a silent plea,\nA memory of what used to be.`,
+      `Through ancient halls, he softly treads,\nWhere painted battles, minds misled.\nHe sees the faces, stark and grand,\nOf those who ruled, this Brunswick land.`,
+      `Within the castle, walls arise,\nA modern echo, meets his eyes.\nThe ancient stones, a memory faint,\nA different world, without restraint.`,
+      `A glowing screen, with words so small,\nTells of his tale, and his downfall.\nA legend told, in digital light,\nHis ancient roar, lost in the night.`,
+      `The city roars, a metal stream,\nA world of noise, a waking dream.\nThe ancient peace, now far away,\nHe longs for dusk, and yesterday.`,
+      `A copy stands, upon his place,\nA hollow shell, a cold embrace.\nHe sees his form, but feels no pride,\nA part of him, has truly died.`,
+      `With heavy heart, he turns to go,\nBack to the place, he used to know.\nThis future world, he can't embrace,\nHe seeks his past, his time, his space.`,
+      `He climbs the stone, with weary sigh,\nHis bronze grows cold, beneath the sky.\nThe magic fades, the spell undone,\nHis journey ends, where it begun.`,
+      `The lion sleeps, once more in stone,\nHis tale untold, his journey done.\nA guardian still, for all to see,\nA timeless legend, wild and free.`
+    ];
+
+    let currentPage = 0;
+    const pagesDesktop = [];
+    const pagesMobile = [];
+
+    const addPage = (bookElement, text, imgIndex, isCover = false, isIntro = false) => {
+      const page = document.createElement('div');
+      page.className = 'page' + (isCover ? ' cover' : '') + (isIntro ? ' intro' : '');
+
+      if (isCover) {
+        page.innerHTML = `<h1>${coverPage.title}</h1><h3>${coverPage.subtitle}</h3>`;
+      } else if (isIntro) {
+        if (bookElement === desktopBook) {
+            page.innerHTML = `
+                <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
+                <div class="text-section" style="text-align: center; justify-content: center;">
+                    Created by X1, X2, X3, X4, with help of the programs:<br>Gemini, Chat GPT and Midjourney
+                </div>
+            `;
+        } else { // Mobile intro page
+            page.innerHTML = `
+                <div class="text-section">${text.replace(/\n/g, '<br>')}</div>
+                <div class="text-section" style="text-align: center;">
+                    Created by X1, X2, X3, X4, with help of the programs:<br>Gemini, Chat GPT and Midjourney
+                </div>
+            `;
+        }
+      } else {
+        const stanzaHTML = text.replace(/\n/g, "<br>");
+        const imgSrc = `images/${String(imgIndex + 1).padStart(2, '0')}.jpg`;
+        if (bookElement === desktopBook) {
+          page.innerHTML = `
+            <div class="text-section">${stanzaHTML}</div>
+            <div class="image-section"><img src="${imgSrc}" alt="Image ${imgIndex + 1}" /></div>
+          `;
+        } else {
+          page.innerHTML = `
+            <div class="image-section"><img src="${imgSrc}" alt="Image ${imgIndex + 1}" /></div>
+            <div class="text-section">${stanzaHTML}</div>
+          `;
+        }
+      }
+      bookElement.appendChild(page);
+      return page;
+    };
+
+    // Add cover and intro pages for both desktop and mobile
+    pagesDesktop.push(addPage(desktopBook, null, null, true));
+    pagesDesktop.push(addPage(desktopBook, introPage.text, null, false, true));
+
+    pagesMobile.push(addPage(mobileBook, null, null, true));
+    pagesMobile.push(addPage(mobileBook, introPage.text, null, false, true));
+
+
+    poemStanzas.forEach((stanza, i) => {
+      pagesDesktop.push(addPage(desktopBook, stanza, i));
+      pagesMobile.push(addPage(mobileBook, stanza, i));
+    });
+
+    function showPage(index) {
+      pagesDesktop.forEach((p, i) => p.classList.toggle('visible', i === index));
+      pagesMobile.forEach((p, i) => p.classList.toggle('visible', i === index));
+
+      // Control button visibility
+      if (index === pagesDesktop.length - 1) { // Last page
+        nextButton.style.display = 'none';
+        backToCoverButton.style.display = 'block';
+      } else {
+        nextButton.style.display = 'block';
+        backToCoverButton.style.display = 'none';
+      }
+    }
+
+    function flipNext() {
+      if (currentPage < pagesDesktop.length - 1) { // Use pagesDesktop.length as a universal length
+        currentPage++;
+        showPage(currentPage);
+      }
+    }
+
+    function flipPrev() {
+      if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    }
+
+    function goToCover() {
+        currentPage = 0;
+        showPage(currentPage);
+    }
+
+    function updateLayout() {
+      const useMobile = window.innerWidth < 768;
+      desktopLayout.classList.toggle('active', !useMobile);
+      mobileLayout.classList.toggle('active', useMobile);
+      showPage(currentPage); // Ensure the current page is shown correctly after layout change
+    }
+
+    window.addEventListener('resize', updateLayout);
+    window.addEventListener('load', () => {
+      updateLayout();
+      showPage(currentPage);
+    });
+  </script>
+</body>
+</html>
