@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Lion's Awakening</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #2d2013;
+      font-family: 'Garamond', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .book {
+      width: 90vw;
+      max-width: 600px;
+      height: 80vh;
+      max-height: 800px;
+      position: relative;
+      perspective: 2000px;
+    }
+
+    .page {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-style: preserve-3d;
+      transform-origin: left center;
+      transition: transform 1s ease;
+    }
+
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #f6f1d3;
+      border: 1px solid #bca77a;
+      padding: 20px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .front {
+      z-index: 2;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .flipped {
+      transform: rotateY(-180deg);
+    }
+
+    .text-section {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    .image-section {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-section img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border: 1px solid #bca77a;
+    }
+
+    .nav-buttons {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 1000;
+    }
+
+    .nav-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #3e2a14;
+      color: #f0e6c2;
+      border: 2px solid #d1ba8b;
+      cursor: pointer;
+      font-family: 'Garamond', serif;
+      box-shadow: 2px 2px 4px #000;
+    }
+
+    .cover, .backcover {
+      background: #5c3a1e;
+      color: #f6f1d3;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    @media (max-width: 600px) {
+      .text-section {
+        font-size: 1em;
+      }
+      .image-section {
+        display: none;
+      }
+      .front, .back {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="book" id="book"></div>
+  <div class="nav-buttons">
+    <button onclick="flipPrev()">Previous</button>
+    <button onclick="flipNext()">Next</button>
+  </div>
+
+  <script>
+    const book = document.getElementById('book');
+    const pages = [];
+
+    const poemStanzas = [
+      `From ancient mold, a lion sleeps,\nBronze and still, his vigil keeps.\nOn Burgplatz old, his story waits,\nFor time to turn and open gates.`,
+      `A whisper stirs, a magic wakes,\nThe lion's heart, it barely breaks.\nA golden spark, ignites his gaze,\nHe stirs from dreams of bygone days.`,
+      `With heavy step, he leaves his stand,\nA metal paw on ancient land.\nThe square transforms, the world anew,\nA different age comes into view.`,
+      `Through market streets, he starts to roam,\nWhere medieval Braunschweig makes its home.\nA metal giant in a world unknown,\nHis ancient heart, it beats alone.`,
+      `The cathedral's form, a welcome sight,\nIts Romanesque arches, bathed in light.\nA piece of home, in this strange place,\nA moment's peace upon his face.`,
+      `A duke appears, with lion's name,\nHenry the Lion, full of fame.\nA silent nod, a shared domain,\nTwo mighty lions, in sun and rain.`,
+      `He walks through time, a silent guest,\nObserving life, put to the test.\nFrom feasts of joy to battles won,\nThe Lion sees what man has done.`,
+      `But time moves on, the world transforms,\nA sudden shift, a change of forms.\nThe ancient streets, now paved with tar,\nA different age, both near and far.`,
+      `The Lion stands at Schloss Arkaden's gate,\nA gleaming glass and steel estate.\nBright lights flash, loud sounds abound,\nA modern palace, all around.`,
+      `Inside the mall, where people stride,\nHe sees reflections, side by side.\nOf hurried steps and whispered talks,\nLost in these bright, consumer walks.`,
+      `A metal beast, in aisles so bright,\nThe meat counter, a strange new sight.\nHe sees his kin, in plastic wrapped,\nA modern world, completely trapped.`,
+      `Beyond the clamor, and the rush,\nA quiet echo, in the hush.\nA different call, a different way,\nTo find the past, in present day.`,
+      `At Herzog Anton Ulrich's stately hall,\nOld friends and foes, rise from the wall.\nTheir painted eyes, a silent plea,\nA memory of what used to be.`,
+      `Through ancient halls, he softly treads,\nWhere painted battles, minds misled.\nHe sees the faces, stark and grand,\nOf those who ruled, this Brunswick land.`,
+      `Within the castle, walls arise,\nA modern echo, meets his eyes.\nThe ancient stones, a memory faint,\nA different world, without restraint.`,
+      `A glowing screen, with words so small,\nTells of his tale, and his downfall.\nA legend told, in digital light,\nHis ancient roar, lost in the night.`,
+      `The city roars, a metal stream,\nA world of noise, a waking dream.\nThe ancient peace, now far away,\nHe longs for dusk, and yesterday.`,
+      `A copy stands, upon his place,\nA hollow shell, a cold embrace.\nHe sees his form, but feels no pride,\nA part of him, has truly died.`,
+      `With heavy heart, he turns to go,\nBack to the place, he used to know.\nThis future world, he can't embrace,\nHe seeks his past, his time, his space.`,
+      `He climbs the stone, with weary sigh,\nHis bronze grows cold, beneath the sky.\nThe magic fades, the spell undone,\nHis journey ends, where it begun.`,
+      `The lion sleeps, once more in stone,\nHis tale untold, his journey done.\nA guardian still, for all to see,\nA timeless legend, wild and free.`
+    ];
+
+    let currentPage = 0;
+
+    function makePage(frontHTML, backStyle = '') {
+      const page = document.createElement('div');
+      page.className = 'page';
+      page.innerHTML = `
+        <div class="front">${frontHTML}</div>
+        <div class="back" style="${backStyle}"></div>
+      `;
+      return page;
+    }
+
+    function createBook() {
+      // Cover
+      const cover = makePage(`<div class="cover">The Lion's Awakening<br><small>A Medieval Journey Through Time</small></div>`);
+      cover.style.zIndex = poemStanzas.length + 2;
+      book.appendChild(cover);
+      pages.push(cover);
+
+      // Poem pages
+      poemStanzas.forEach((stanza, i) => {
+        const imgNum = String(i + 1).padStart(2, '0');
+        const frontHTML = `
+          <div class="text-section"><p>${stanza.replace(/\n/g, "<br>")}</p></div>
+          <div class="image-section"><img src="images/${imgNum}.jpg" alt="Image ${imgNum}"></div>
+        `;
+        const backStyle = `background-image: url('images/${imgNum}.jpg');`;
+        const page = makePage(frontHTML, backStyle);
+        page.style.zIndex = poemStanzas.length - i + 1;
+        book.appendChild(page);
+        pages.push(page);
+      });
+
+      // Back cover
+      const backcover = makePage(`<div class="backcover">The End<br><small>Thank you for reading</small></div>`);
+      backcover.style.zIndex = 1;
+      book.appendChild(backcover);
+      pages.push(backcover);
+    }
+
+    function flipNext() {
+      if (currentPage < pages.length) {
+        pages[currentPage].classList.add('flipped');
+        currentPage++;
+      }
+    }
+
+    function flipPrev() {
+      if (currentPage > 0) {
+        currentPage--;
+        pages[currentPage].classList.remove('flipped');
+      }
+    }
+
+    // Swipe support for mobile
+    let startX = 0;
+    book.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
+
+    book.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (endX - startX > 50) flipPrev();
+      else if (startX - endX > 50) flipNext();
+    });
+
+    createBook();
+  </script>
+</body>
+</html>
